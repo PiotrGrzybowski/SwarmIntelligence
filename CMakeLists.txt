@@ -9,6 +9,9 @@ include_directories(include)
 include_directories(lib/googletest/googlemock/include)
 include_directories(lib/googletest/googletest/include)
 
-add_executable(SwarmIntelligence main.cpp)
+add_executable(SwarmIntelligence main.cpp
+        engine/src/Partial.cpp
+        engine/include/Partial.h
+        engine/src/Swarm.cpp engine/include/Swarm.h)
 
 target_link_libraries(SwarmIntelligence gtest gtest_main)
