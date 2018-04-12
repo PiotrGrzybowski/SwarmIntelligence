@@ -1,17 +1,17 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.6.3)
 project(SwarmIntelligence)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 11)
 
-add_subdirectory(lib/googletest)
+add_subdirectory(C++/lib/googletest)
 
-include_directories(include)
-include_directories(lib/googletest/googlemock/include)
-include_directories(lib/googletest/googletest/include)
+include_directories(C++/engine/include)
+include_directories(C++/lib/googletest/googlemock/include)
+include_directories(C++/lib/googletest/googletest/include)
 
-add_executable(SwarmIntelligence main.cpp
-        engine/src/Partial.cpp
-        engine/include/Partial.h
-        engine/src/Swarm.cpp engine/include/Swarm.h)
+add_executable(SwarmIntelligence C++/main.cpp
+        C++/engine/src/Partial.cpp
+        C++/engine/include/Partial.h
+        C++/engine/src/Swarm.cpp C++/engine/include/Swarm.h C++/tests/test_partial.cpp)
 
 target_link_libraries(SwarmIntelligence gtest gtest_main)
