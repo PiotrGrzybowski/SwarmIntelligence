@@ -22,9 +22,5 @@ class BohachevskyFunction(MathFunction):
         return np.power(x, 2) + 2 * np.power(y, 2) + (-0.3 * np.cos(3 * np.pi * x)) + (-0.4 * np.cos(4 * np.pi * y)) + 0.7
 
 
-class Room(Benchmark):
-    pass
-
-
 if __name__ == "__main__":
     print(BohachevskyFunction().evaluate(0, 0))

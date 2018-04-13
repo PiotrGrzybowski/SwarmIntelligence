@@ -2,6 +2,7 @@
 // Created by piotr on 3/30/18.
 //
 
+#include <values.h>
 #include "../include/Swarm.h"
 
 Swarm::Swarm(unsigned long dimension, double low, double up) : dimension(dimension), low(low), up(up) {

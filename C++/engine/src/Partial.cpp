@@ -26,8 +26,7 @@ void Partial::updatePosition(Function &fun) {
 }
 
 void Partial::updateVelocity(const std::valarray<double> &globalBest, double c1, double c2) {
-    velocity = velocity + (bestPosition - position) * c1 * uniform_real(0, 1) +
-                            (globalBest - position) * c2 * uniform_real(0, 1);
+    velocity = velocity + (bestPosition - position) * c1 * uniform_real(0, 1) + (globalBest - position) * c2 * uniform_real(0, 1);
 }
 
 unsigned long Partial::getDimension() const {
