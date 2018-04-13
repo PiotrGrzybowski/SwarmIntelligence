@@ -1,0 +1,11 @@
+Thing1:
+    name: Chair
+    width: 10
+    height: 10
+    can_stay_on_carpet: True
+
+Thing2:
+    name: Table
+    width: 30
+    height: 10
+    can_stay_on_carpet: False

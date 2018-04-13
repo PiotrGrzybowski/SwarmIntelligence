@@ -1,13 +1,25 @@
+import yaml
+
+from algorithm import PartialSwarmOptimization
 from room import Room
 from thing import Thing
 
 if __name__ == "__main__":
     room = Room(100, 100)
-    chair = Thing('Chair', 10, 10, 20, 20, False)
-    table = Thing('Table', 10, 10, 40, 50, False)
 
-    room.add_thing(chair)
-    room.add_thing(table)
+    with open('room.yml') as f:
+        # use safe_load instead load
+        data = yaml.safe_load(f)
+        things = [Thing(**v) for v in data.values()]
 
-    print(room.variables())
-    print(chair.calculate_distance_from_point((0, 0)))
+        for thing in things:
+            room.add_thing(thing)
+
+        # room.set_thing_positions([0, 10, 25, 40])
+        print(room.variables)
+        print(room.evaluate())
+
+        pso = PartialSwarmOptimization(room)
+
+        pso.find_best_solution(10)
+
