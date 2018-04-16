@@ -56,6 +56,10 @@ class Room:
         for i in range(len(self.things)):
             self.things[i].set_position(positions[2 * i], positions[2 * i + 1])
 
+    def is_thing_in_room_range(self, thing):
+        return thing.x_min >= self.x_min and thing.x_max <= self.x_max and \
+               thing.y_min >= self.y_min and thing.y_max <= self.y_max
+
     @property
     def dimension(self):
         return 2 * len(self.things)
@@ -63,3 +67,19 @@ class Room:
     @property
     def variables(self):
         return list(itertools.chain.from_iterable([thing.x, thing.y] for thing in self.things))
+
+    @property
+    def x_min(self):
+        return self.center[0] - self.width / 2
+
+    @property
+    def y_min(self):
+        return self.center[1] - self.height / 2
+
+    @property
+    def x_max(self):
+        return self.center[0] + self.width / 2
+
+    @property
+    def y_max(self):
+        return self.center[1] + self.height / 2
