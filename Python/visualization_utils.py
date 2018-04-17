@@ -19,9 +19,10 @@ class RoomDrawer:
         cv2.arrowedLine(self.img, (0, self.height // 2), (self.width, self.height // 2), (0, 0, 0), 1, tipLength=0.05)
 
     def show(self):
-        cv2.imshow('Paokno', self.img)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        # cv2.imshow('Room', self.img)
+        # cv2.waitKey(0)
+        # cv2.destroyAllWindows()
+        cv2.imwrite('Room.jpg', self.img)
 
     def draw_thing(self, thing, i):
         color = (0, 0, 0) if thing.can_stay_on_carpet else (0, 0, 255)

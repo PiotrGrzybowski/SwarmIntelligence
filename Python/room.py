@@ -8,14 +8,32 @@ class Benchmark:
     def evaluate(self):
         raise NotImplementedError()
 
-    def evaluate_solution(self, solution):
+    def evaluate_solution(self, *args, **kwargs):
         raise NotImplementedError()
 
-    def is_solution_in_domain(self, solution):
+    def is_solution_in_domain(self, *args, **kwargs):
         raise NotImplementedError()
 
-    def comparator(self, solution1, solution2):
-        raise NotImplementedError()
+
+class BohachevskyFunction(Benchmark):
+    def __init__(self):
+        self.x = 0
+        self.y = 0
+
+    def evaluate(self):
+        return np.power(self.x, 2) + 2 * np.power(self.y, 2) + (-0.3 * np.cos(3 * np.pi * self.x)) + (-0.4 * np.cos(4 * np.pi * self.y)) + 0.7
+
+    def evaluate_solution(self, x, y):
+        self.set_solution(x, y)
+        return self.evaluate()
+
+    def is_solution_in_domain(self, x, y):
+        self.set_solution()
+        return 0 < self.x < 10 and -5 < self.y < 5
+
+    def set_solution(self, x, y):
+        self.x = x
+        self.y = y
 
 
 class Room(Benchmark):
@@ -47,9 +65,6 @@ class Room(Benchmark):
         self.set_thing_positions(solution)
         return self.satisfy_constraints()
 
-    def comparator(self, solution1, solution2):
-        return self.evaluate_solution(solution1) > self.evaluate_solution(solution2)
-
     def distance_from_center_to_things(self):
         return [thing.calculate_distance_from_point(self.center) for thing in self.things if not thing.can_stay_on_carpet]
 
@@ -78,7 +93,6 @@ class Room(Benchmark):
 
     def satisfy_constraints(self):
         return self.all_things_in_room_range() and not self.is_door_stacked() and not self.is_window_stacked() and not self.exists_overlapping()
-
 
     @property
     def dimension(self):

@@ -10,8 +10,8 @@ Thing2:
     height: 50
     can_stay_on_carpet: False
 
-#Thing3:
-#    name: Table
-#    width: 20
-#    height: 20
-#    can_stay_on_carpet: true
+Thing3:
+    name: Table
+    width: 20
+    height: 20
+    can_stay_on_carpet: true
