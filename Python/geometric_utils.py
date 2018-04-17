@@ -19,3 +19,8 @@ def distance_from_point_to_rectangle(point, rectangle):
 
 def circle_field(radius):
     return np.pi * np.power(radius, 2)
+
+
+def are_things_in_collision(thing1, thing2):
+    return thing1.x_min < thing2.x_max and thing1.x_max > thing2.x_min and \
+           thing1.y_min < thing2.y_max and thing1.x_max > thing2.x_min

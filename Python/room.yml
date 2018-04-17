@@ -1,11 +1,17 @@
 Thing1:
     name: Chair
-    width: 10
-    height: 10
-    can_stay_on_carpet: True
+    width: 50
+    height: 50
+    can_stay_on_carpet: False
 
 Thing2:
     name: Table
-    width: 30
-    height: 10
+    width: 50
+    height: 50
     can_stay_on_carpet: False
+
+#Thing3:
+#    name: Table
+#    width: 20
+#    height: 20
+#    can_stay_on_carpet: true

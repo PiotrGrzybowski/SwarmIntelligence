@@ -7,19 +7,23 @@ class Algorithm:
 
 
 class PartialSwarmOptimization:
-    def __init__(self, benchmark):
+    def __init__(self, benchmark, low, high):
         self.benchmark = benchmark
         self.global_solution = None
         self.partials = None
+        self.low = low
+        self.high = high
 
     def find_best_solution(self, partials):
         self.initialize_partials(partials)
+        self.initialize_global_solution()
 
     def initialize_partials(self, partials):
-        self.partials = [Partial(self.benchmark.dimension, -100, 100) for _ in range(partials)]
+        self.partials = [Partial(self.benchmark.dimension, self.low, self.high) for _ in range(partials)]
 
     def initialize_global_solution(self):
-        pass
+        solutions_in_domain = [partial for partial in self.partials if self.benchmark.is_solution_in_domain(partial.solution)]
+        self.global_solution = max(solutions_in_domain, key=lambda x: self.benchmark.evaluate_solution(x.solution))
 
 
 class Partial:
