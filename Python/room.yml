@@ -14,4 +14,4 @@ Thing3:
     name: Table
     width: 20
     height: 20
-    can_stay_on_carpet: true
+    can_stay_on_carpet: True
