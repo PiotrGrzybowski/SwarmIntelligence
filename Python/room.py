@@ -28,7 +28,7 @@ class BohachevskyFunction(Benchmark):
         return self.evaluate()
 
     def is_solution_in_domain(self, x, y):
-        self.set_solution()
+        self.set_solution(x, y)
         return 0 < self.x < 10 and -5 < self.y < 5
 
     def set_solution(self, x, y):
