@@ -15,12 +15,9 @@ if __name__ == "__main__":
         for thing in things:
             room.add_thing(thing)
 
-        pso = PartialSwarmOptimization(room, -200, 200)
-        pso.find_best_solution(partials=300, iterations=10)
+        pso = PartialSwarmOptimization(room, -100, 100)
+        pso.find_best_solution(partials=20, iterations=100)
 
-        global_value = room.evaluate_solution(pso.global_solution)
-        print(pso.global_solution)
         room.set_thing_positions(pso.global_solution)
-        print(type(pso.global_solution))
         drawer = RoomDrawer(room)
         drawer.show()

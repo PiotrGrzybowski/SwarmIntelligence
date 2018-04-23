@@ -15,45 +15,45 @@ Thing3:
     width: 20
     height: 20
     can_stay_on_carpet: True
-
-Thing4:
-    name: Table
-    width: 20
-    height: 20
-    can_stay_on_carpet: False
-
-Thing5:
-    name: Table
-    width: 20
-    height: 20
-    can_stay_on_carpet: False
-
-Thing6:
-    name: Table
-    width: 20
-    height: 20
-    can_stay_on_carpet: False
-
-Thing7:
-    name: Table
-    width: 20
-    height: 20
-    can_stay_on_carpet: False
-
-Thing8:
-    name: Table
-    width: 20
-    height: 20
-    can_stay_on_carpet: False
-
-Thing9:
-    name: Table
-    width: 20
-    height: 20
-    can_stay_on_carpet: False
-
-Thing10:
-    name: Table
-    width: 20
-    height: 20
-    can_stay_on_carpet: False
+#
+#Thing4:
+#    name: Table
+#    width: 20
+#    height: 20
+#    can_stay_on_carpet: False
+#
+#Thing5:
+#    name: Table
+#    width: 20
+#    height: 20
+#    can_stay_on_carpet: False
+#
+#Thing6:
+#    name: Table
+#    width: 20
+#    height: 20
+#    can_stay_on_carpet: False
+#
+#Thing7:
+#    name: Table
+#    width: 20
+#    height: 20
+#    can_stay_on_carpet: False
+#
+#Thing8:
+#    name: Table
+#    width: 20
+#    height: 20
+#    can_stay_on_carpet: False
+#
+#Thing9:
+#    name: Table
+#    width: 20
+#    height: 20
+#    can_stay_on_carpet: False
+#
+#Thing10:
+#    name: Table
+#    width: 20
+#    height: 20
+#    can_stay_on_carpet: False

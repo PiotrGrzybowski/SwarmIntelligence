@@ -55,7 +55,7 @@ class Room(Benchmark):
         self.things.append(thing)
 
     def evaluate(self):
-        return circle_field(self.get_max_carpet_radius())
+        return self.get_max_carpet_radius()
 
     def evaluate_solution(self, solution):
         self.set_thing_positions(solution)
