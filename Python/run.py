@@ -15,8 +15,8 @@ if __name__ == "__main__":
         for thing in things:
             room.add_thing(thing)
 
-        pso = PartialSwarmOptimization(room, -300, 300)
-        pso.find_best_solution(partials=100, iterations=10)
+        pso = PartialSwarmOptimization(room, -200, 200)
+        pso.find_best_solution(partials=300, iterations=10)
 
         global_value = room.evaluate_solution(pso.global_solution)
         print(pso.global_solution)
