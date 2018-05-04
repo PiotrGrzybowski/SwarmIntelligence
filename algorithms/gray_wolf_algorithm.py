@@ -63,6 +63,4 @@ class GrayWolfAlgorithm(SwarmIntelligence):
         return result
 
     def get_leaders(self):
-        """Return alpha, beta, delta leaders of grey wolfs"""
-
         return list(self.leaders)

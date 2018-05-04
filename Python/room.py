@@ -1,7 +1,10 @@
 import numpy as np
 import itertools
 
-from geometric_utils import circle_field, are_things_in_collision
+import yaml
+
+from geometric_utils import are_things_in_collision
+from thing import Thing
 
 
 class Benchmark:
@@ -117,3 +120,8 @@ class Room(Benchmark):
     @property
     def y_max(self):
         return self.center[1] + self.height // 2
+
+    def load_from_yml(self, path):
+        with open(path) as f:
+            data = yaml.safe_load(f)
+            self.things = [Thing(**v) for v in data.values()]
