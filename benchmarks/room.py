@@ -29,7 +29,7 @@ class Room(Benchmark):
         pass
 
     @property
-    def dimensions(self):
+    def dimension(self):
         raise NotImplementedError()
 
     def load_from_yml(self, path):

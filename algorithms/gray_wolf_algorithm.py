@@ -4,63 +4,62 @@ from algorithms.swarm_intelligence import SwarmIntelligence
 
 
 class GrayWolfAlgorithm(SwarmIntelligence):
-    def __init__(self, n, function, low, high, dimension, iterations):
-        super().__init__()
-        self.agents = np.random.uniform(low, high, (n, dimension))
-        self.save_current_solutions(self.agents)
-        alpha, beta, delta = self.get_alpha_beta_delta(n, function)
+    def __init__(self, benchmark, low, high):
+        super().__init__(benchmark)
+        self.low = low
+        self.high = high
+        self.alpha = []
+        self.beta = []
+        self.delta = []
+        self.agents = []
 
-        self.global_best = alpha
+    def initialize_searching(self, number_of_agents):
+        self.agents = np.random.uniform(self.low, self.high, (number_of_agents, self.benchmark.dimension))
+        self.save_current_solutions(self.agents)
+        self.evaluate_alpha_beta_delta(number_of_agents)
+        self.global_solution = self.alpha
+
+    def find_best_solution(self, iterations, number_of_agents):
+        self.initialize_searching(number_of_agents)
 
         for t in range(iterations):
-
             a = 2 - 2 * t / iterations
 
-            r1 = np.random.random((n, dimension))
-            r2 = np.random.random((n, dimension))
+            r1 = np.random.random((number_of_agents, self.benchmark.dimension))
+            r2 = np.random.random((number_of_agents, self.benchmark.dimension))
             A1 = 2 * r1 * a - a
             C1 = 2 * r2
 
-            r1 = np.random.random((n, dimension))
-            r2 = np.random.random((n, dimension))
+            r1 = np.random.random((number_of_agents, self.benchmark.dimension))
+            r2 = np.random.random((number_of_agents, self.benchmark.dimension))
             A2 = 2 * r1 * a - a
             C2 = 2 * r2
 
-            r1 = np.random.random((n, dimension))
-            r2 = np.random.random((n, dimension))
+            r1 = np.random.random((number_of_agents, self.benchmark.dimension))
+            r2 = np.random.random((number_of_agents, self.benchmark.dimension))
             A3 = 2 * r1 * a - a
             C3 = 2 * r2
 
-            Dalpha = abs(C1 * alpha - self.agents)
-            Dbeta = abs(C2 * beta - self.agents)
-            Ddelta = abs(C3 * delta - self.agents)
+            Dalpha = abs(C1 * self.alpha - self.agents)
+            Dbeta = abs(C2 * self.beta - self.agents)
+            Ddelta = abs(C3 * self.delta - self.agents)
 
-            X1 = alpha - A1 * Dalpha
-            X2 = beta - A2 * Dbeta
-            X3 = delta - A3 * Ddelta
+            X1 = self.alpha - A1 * Dalpha
+            X2 = self.beta - A2 * Dbeta
+            X3 = self.delta - A3 * Ddelta
 
             self.agents = (X1 + X2 + X3) / 3
 
-            self.agents = np.clip(self.agents, low, high)
+            self.agents = np.clip(self.agents, self.low, self.high)
             self.save_current_solutions(self.agents)
 
-            alpha, beta, delta = self.get_alpha_beta_delta(n, function)
-            if function(alpha) < function(self.global_best):
-                self.global_best = alpha
+            self.evaluate_alpha_beta_delta(number_of_agents)
+            if self.benchmark.evaluate(*self.alpha) < self.benchmark.evaluate(*self.global_solution):
+                self.global_solution = self.alpha
+        self.evaluate_alpha_beta_delta(number_of_agents)
 
-        alpha, beta, delta = self.get_alpha_beta_delta(n, function)
-        self.leaders = list(alpha), list(beta), list(delta)
-
-    def get_alpha_beta_delta(self, n, function):
-
-        result = []
-        fitness = [(function(self.agents[i]), i) for i in range(n)]
-        fitness.sort()
-
-        for i in range(3):
-            result.append(self.agents[fitness[i][1]])
-
-        return result
-
-    def get_leaders(self):
-        return list(self.leaders)
+    def evaluate_alpha_beta_delta(self, n):
+        fitness = sorted([(self.benchmark.evaluate(*self.agents[i]), i) for i in range(n)])
+        self.alpha = self.agents[fitness[0][1]]
+        self.beta = self.agents[fitness[1][1]]
+        self.delta = self.agents[fitness[2][1]]

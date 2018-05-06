@@ -8,6 +8,10 @@ class Benchmark:
     def is_in_domain(self, *args, **kwargs):
         raise NotImplementedError()
 
+    @property
+    def dimension(self):
+        raise NotImplementedError()
+
 
 class BohachevskyFunction(Benchmark):
     def evaluate(self, x, y):

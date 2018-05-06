@@ -16,7 +16,7 @@ class BohachevskyFunction(Benchmark):
         return x ** 2 + 2 * y ** 2 - 0.3 * np.cos(3 * np.pi * x) - 0.4 * np.cos(4 * np.pi * y) + 0.7
 
     @property
-    def dimensions(self):
+    def dimension(self):
         return 2
 
     def find_best_solution(self, solutions):
@@ -28,7 +28,7 @@ class EasomFunction(Benchmark):
         return -np.cos(x) * np.cos(y) * np.exp(-(x - np.pi) ** 2 - (y - np.pi) ** 2)
 
     @property
-    def dimensions(self):
+    def dimension(self):
         return 2
 
     def find_best_solution(self, solutions):

@@ -12,14 +12,14 @@ class ParticleSwarmOptimization(SwarmIntelligence):
         self.agents = None
         self.velocity = None
 
-    def find_best_solutions(self, iterations, number_of_agents, c1, c2):
+    def find_best_solution(self, iterations, number_of_agents, c1, c2):
         self.initialize_searching(number_of_agents)
 
         best_solution = self.agents[np.array([self.benchmark.evaluate(*x) for x in self.agents]).argmin()]
         self.global_solution = best_solution
         for i in range(iterations):
-            r1 = np.random.random((number_of_agents, self.benchmark.dimensions))
-            r2 = np.random.random((number_of_agents, self.benchmark.dimensions))
+            r1 = np.random.random((number_of_agents, self.benchmark.dimension))
+            r2 = np.random.random((number_of_agents, self.benchmark.dimension))
 
             self.process_agents(best_solution, c1, c2, r1, r2)
             self.save_current_solutions(self.agents)
@@ -32,8 +32,8 @@ class ParticleSwarmOptimization(SwarmIntelligence):
         self.agents = np.clip(self.agents, self.low, self.high)
 
     def initialize_searching(self, number_of_agents):
-        self.agents = np.random.uniform(self.low, self.high, (number_of_agents, self.benchmark.dimensions))
-        self.velocity = np.zeros((number_of_agents, self.benchmark.dimensions))
+        self.agents = np.random.uniform(self.low, self.high, (number_of_agents, self.benchmark.dimension))
+        self.velocity = np.zeros((number_of_agents, self.benchmark.dimension))
         self.save_current_solutions(self.agents)
 
     def update_velocity(self, best_solution, c1, c2, r1, r2):
@@ -44,7 +44,7 @@ class ParticleSwarmOptimization(SwarmIntelligence):
             self.global_solution = best_solution
 
     def initialize_agents(self, number_of_agents):
-        self.agents = np.random.uniform(self.low, self.high, (number_of_agents, self.benchmark.dimensions))
+        self.agents = np.random.uniform(self.low, self.high, (number_of_agents, self.benchmark.dimension))
 
     def initialize_velocity(self, number_of_agents):
-        self.velocity = np.zeros((number_of_agents, self.benchmark.dimensions))
+        self.velocity = np.zeros((number_of_agents, self.benchmark.dimension))
