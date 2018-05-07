@@ -26,19 +26,15 @@ class Room(Benchmark):
     def add_thing(self, thing):
         self.things.append(thing)
 
-    def evaluate(self):
+    def evaluate(self, *args):
+        self.set_thing_positions(args)
         return self.get_max_carpet_radius()
-
-    def evaluate_solution(self, solution):
-        self.set_thing_positions(solution)
-        return self.evaluate()
 
     def find_best_solution(self, solutions):
         pass
 
-    def process_borders(self, *args, **kwargs):
-        pass
-
+    def process_borders(self, agents, low, high):
+        return agents
 
     def is_solution_in_domain(self, solution):
         self.set_thing_positions(solution)

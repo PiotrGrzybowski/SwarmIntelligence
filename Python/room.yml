@@ -4,17 +4,17 @@ Thing1:
     height: 50
     can_stay_on_carpet: False
 
-Thing2:
-    name: Table
-    width: 50
-    height: 50
-    can_stay_on_carpet: False
-
-Thing3:
-    name: Table
-    width: 20
-    height: 20
-    can_stay_on_carpet: True
+#Thing2:
+#    name: Table
+#    width: 50
+#    height: 50
+#    can_stay_on_carpet: False
+#
+#Thing3:
+#    name: Table
+#    width: 20
+#    height: 20
+#    can_stay_on_carpet: True
 #
 #Thing4:
 #    name: Table

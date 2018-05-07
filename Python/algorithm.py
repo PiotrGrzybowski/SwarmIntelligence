@@ -21,7 +21,7 @@ class PartialSwarmOptimization:
         self.initialize_partials(partials)
         self.initialize_global_solution()
 
-        print(self.benchmark.evaluate_solution(self.global_solution))
+        print(self.benchmark.evaluate(self.global_solution))
         for i in range(iterations):
             for partial in self.partials:
                 self.update_partial(partial, 1, 1)
@@ -29,7 +29,7 @@ class PartialSwarmOptimization:
             drawer = RoomDrawer(self.benchmark)
             drawer.show()
 
-            print("Iteration {}, Radius = {}".format(i, self.benchmark.evaluate_solution(self.global_solution)))
+            print("Iteration {}, Radius = {}".format(i, self.benchmark.evaluate(self.global_solution)))
 
     def initialize_partials(self, partials):
         while len(self.partials) < partials:
@@ -39,7 +39,7 @@ class PartialSwarmOptimization:
 
     def initialize_global_solution(self):
         solutions_in_domain = [partial for partial in self.partials if self.benchmark.is_solution_in_domain(partial.solution)]
-        self.global_solution = max(solutions_in_domain, key=lambda x: self.benchmark.evaluate_solution(x.solution)).solution
+        self.global_solution = max(solutions_in_domain, key=lambda x: self.benchmark.evaluate(x.solution)).solution
 
     def update_partial(self, partial, c1, c2):
         backup_solution = [x for x in partial.solution]
@@ -58,7 +58,7 @@ class PartialSwarmOptimization:
             k += 1
 
     def update_global_solution(self, partial):
-        if self.benchmark.evaluate_solution(partial.solution) > self.benchmark.evaluate_solution(self.global_solution):
+        if self.benchmark.evaluate(partial.solution) > self.benchmark.evaluate(self.global_solution):
             self.global_solution = np.array([x for x in partial.solution])
 
 
