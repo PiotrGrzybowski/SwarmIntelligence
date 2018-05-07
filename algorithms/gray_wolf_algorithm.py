@@ -51,7 +51,7 @@ class GrayWolfAlgorithm(SwarmIntelligence):
 
             self.agents = (X1 + X2 + X3) / 3
 
-            self.agents = self.benchmark.process_borders(self.agents, self.low, self.high)
+            # self.agents = self.benchmark.process_borders(self.agents, self.low, self.high)
             self.save_current_solutions(self.agents)
 
             self.evaluate_alpha_beta_delta(number_of_agents)
@@ -60,7 +60,7 @@ class GrayWolfAlgorithm(SwarmIntelligence):
         self.evaluate_alpha_beta_delta(number_of_agents)
 
     def evaluate_alpha_beta_delta(self, n):
-        fitness = sorted([(self.benchmark.evaluate(*self.agents[i]), i) for i in range(n)])
+        fitness = sorted([(self.benchmark.evaluate(*self.agents[i]), i) for i in range(n)], reverse=True)
         self.alpha = self.agents[fitness[0][1]]
         self.beta = self.agents[fitness[1][1]]
         self.delta = self.agents[fitness[2][1]]

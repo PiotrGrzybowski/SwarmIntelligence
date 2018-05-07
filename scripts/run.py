@@ -88,6 +88,7 @@ wolf = GrayWolfAlgorithm(benchmark=benchmark, low=low, high=high)
 wolf.find_best_solution(number_of_agents=number_of_agents, iterations=iterations - 1)
 
 wolf = GrayWolfAlgorithm(benchmark=benchmark, low=low, high=high)
-print(wolf.global_solution)
+wolf.find_best_solution(number_of_agents=number_of_agents, iterations=iterations - 1)
+room.set_thing_positions(wolf.global_solution)
 drawer = RoomDrawer(room)
 drawer.show()
