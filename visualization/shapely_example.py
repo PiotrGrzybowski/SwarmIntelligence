@@ -2,8 +2,7 @@ from matplotlib import pyplot
 from shapely.geometry import Point
 from shapely.ops import cascaded_union
 from descartes import PolygonPatch
-
-from figures import SIZE, BLUE, GRAY, set_limits
+from visualization.figures import SIZE, BLUE, GRAY, set_limits
 
 polygons = [Point(i, 0).buffer(0.7) for i in range(5)]
 
