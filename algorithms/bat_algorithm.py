@@ -5,10 +5,10 @@ from algorithms.swarm_intelligence import SwarmIntelligence
 
 
 class BatAlgorithm(SwarmIntelligence):
-    def __init__(self, n, function, low, high, dimension, iterations, r0=0.9, V0=0.5, fmin=0, fmax=0.02, alpha=0.9,
+    def __init__(self, n, benchmark, low, high, dimension, iterations, r0=0.9, V0=0.5, fmin=0, fmax=0.02, alpha=0.9,
                  csi=0.9):
 
-        super().__init__()
+        super().__init__(benchmark)
         r = [r0 for i in range(n)]
 
         self.agents = np.random.uniform(low, high, (n, dimension))
@@ -17,7 +17,7 @@ class BatAlgorithm(SwarmIntelligence):
         velocity = np.zeros((n, dimension))
         V = [V0] * n
 
-        best_solution = self.agents[np.array([function(i) for i in self.agents]).argmin()]
+        best_solution = self.agents[np.array([benchmark(i) for i in self.agents]).argmin()]
         self.global_solution = best_solution
 
         f = fmin + (fmin - fmax)
@@ -35,7 +35,7 @@ class BatAlgorithm(SwarmIntelligence):
                     sol[i] = self.global_solution + np.random.uniform(-1, 1, (1, dimension)) * sum(V) / n
 
             for i in range(n):
-                if function(sol[i]) < function(self.agents[i]) and random() < V[i]:
+                if benchmark(sol[i]) < benchmark(self.agents[i]) and random() < V[i]:
                     self.agents[i] = sol[i]
                     V[i] *= alpha
                     r[i] *= (1 - np.exp(-csi * t))
@@ -43,6 +43,6 @@ class BatAlgorithm(SwarmIntelligence):
             self.agents = np.clip(self.agents, low, high)
             self.save_current_solutions(self.agents)
 
-            best_solution = self.agents[np.array([function(x) for x in self.agents]).argmin()]
-            if function(best_solution) < function(self.global_solution):
+            best_solution = self.agents[np.array([benchmark(x) for x in self.agents]).argmin()]
+            if benchmark(best_solution) < benchmark(self.global_solution):
                 self.global_solution = best_solution

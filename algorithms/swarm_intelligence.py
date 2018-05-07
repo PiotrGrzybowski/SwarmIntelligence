@@ -15,4 +15,6 @@ class SwarmIntelligence:
         average_results = []
 
         for i in range(len(self.solutions)):
-            print(self.solutions[i])
+            best_results.append(self.benchmark.evaluate_best_solution(self.solutions[i]))
+            average_results.append(np.mean([self.benchmark.evaluate(*solution) for solution in self.solutions[i]]))
+        return best_results, average_results

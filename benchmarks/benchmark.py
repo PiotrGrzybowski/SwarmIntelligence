@@ -3,8 +3,11 @@ class Benchmark:
         raise NotImplementedError()
 
     @property
-    def dimensions(self):
+    def dimension(self):
         raise NotImplementedError()
 
     def find_best_solution(self, solutions):
         raise NotImplementedError()
+
+    def evaluate_best_solution(self, solutions):
+        return self.evaluate(*self.find_best_solution(solutions))

@@ -14,6 +14,7 @@ class GrayWolfAlgorithm(SwarmIntelligence):
         self.agents = []
 
     def initialize_searching(self, number_of_agents):
+        self.solutions = []
         self.agents = np.random.uniform(self.low, self.high, (number_of_agents, self.benchmark.dimension))
         self.save_current_solutions(self.agents)
         self.evaluate_alpha_beta_delta(number_of_agents)

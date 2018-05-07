@@ -32,6 +32,7 @@ class ParticleSwarmOptimization(SwarmIntelligence):
         self.agents = np.clip(self.agents, self.low, self.high)
 
     def initialize_searching(self, number_of_agents):
+        self.solutions = []
         self.agents = np.random.uniform(self.low, self.high, (number_of_agents, self.benchmark.dimension))
         self.velocity = np.zeros((number_of_agents, self.benchmark.dimension))
         self.save_current_solutions(self.agents)
