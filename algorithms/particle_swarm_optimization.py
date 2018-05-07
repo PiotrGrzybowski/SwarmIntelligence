@@ -29,7 +29,7 @@ class ParticleSwarmOptimization(SwarmIntelligence):
     def process_agents(self, best_solution, c1, c2, r1, r2):
         self.update_velocity(best_solution, c1, c2, r1, r2)
         self.agents += self.velocity
-        self.agents = np.clip(self.agents, self.low, self.high)
+        self.agents = self.benchmark.process_borders(self.agents, self.low, self.high)
 
     def initialize_searching(self, number_of_agents):
         self.solutions = []

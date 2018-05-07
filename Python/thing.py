@@ -1,4 +1,4 @@
-from geometric_utils import distance_from_point_to_rectangle
+from Python.geometric_utils import distance_from_point_to_rectangle
 
 
 class Thing:

@@ -35,7 +35,7 @@ class WhaleSwarmAlgorithm(SwarmIntelligence):
                     new_agents[i] += np.dot(np.random.uniform(0, ro0 * np.exp(-eta * self.__whale_dist(i, y))),
                                             self.agents[y] - self.agents[i])
             self.agents = new_agents
-            self.agents = np.clip(self.agents, self.low, self.high)
+            self.agents = self.benchmark.process_borders(self.agents, self.low, self.high)
             self.save_current_solutions(self.agents)
 
             solution = self.benchmark.find_best_solution(self.agents)

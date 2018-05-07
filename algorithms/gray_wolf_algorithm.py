@@ -51,7 +51,7 @@ class GrayWolfAlgorithm(SwarmIntelligence):
 
             self.agents = (X1 + X2 + X3) / 3
 
-            self.agents = np.clip(self.agents, self.low, self.high)
+            self.agents = self.benchmark.process_borders(self.agents, self.low, self.high)
             self.save_current_solutions(self.agents)
 
             self.evaluate_alpha_beta_delta(number_of_agents)

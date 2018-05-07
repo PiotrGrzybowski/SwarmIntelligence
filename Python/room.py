@@ -3,40 +3,9 @@ import itertools
 
 import yaml
 
-from geometric_utils import are_things_in_collision
-from thing import Thing
-
-
-class Benchmark:
-    def evaluate(self):
-        raise NotImplementedError()
-
-    def evaluate_solution(self, *args, **kwargs):
-        raise NotImplementedError()
-
-    def is_solution_in_domain(self, *args, **kwargs):
-        raise NotImplementedError()
-
-
-class BohachevskyFunction(Benchmark):
-    def __init__(self):
-        self.x = 0
-        self.y = 0
-
-    def evaluate(self):
-        return np.power(self.x, 2) + 2 * np.power(self.y, 2) + (-0.3 * np.cos(3 * np.pi * self.x)) + (-0.4 * np.cos(4 * np.pi * self.y)) + 0.7
-
-    def evaluate_solution(self, x, y):
-        self.set_solution(x, y)
-        return self.evaluate()
-
-    def is_solution_in_domain(self, x, y):
-        self.set_solution(x, y)
-        return 0 < self.x < 10 and -5 < self.y < 5
-
-    def set_solution(self, x, y):
-        self.x = x
-        self.y = y
+from Python.geometric_utils import are_things_in_collision
+from Python.thing import Thing
+from benchmarks.benchmark import Benchmark
 
 
 class Room(Benchmark):
@@ -63,6 +32,13 @@ class Room(Benchmark):
     def evaluate_solution(self, solution):
         self.set_thing_positions(solution)
         return self.evaluate()
+
+    def find_best_solution(self, solutions):
+        pass
+
+    def process_borders(self, *args, **kwargs):
+        pass
+
 
     def is_solution_in_domain(self, solution):
         self.set_thing_positions(solution)

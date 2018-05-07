@@ -11,3 +11,6 @@ class Benchmark:
 
     def evaluate_best_solution(self, solutions):
         return self.evaluate(*self.find_best_solution(solutions))
+
+    def process_borders(self, *args, **kwargs):
+        raise NotImplementedError()
