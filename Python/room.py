@@ -13,6 +13,7 @@ class Room(Benchmark):
         self.width = width
         self.height = height
         self.things = []
+        self.shapes = []
         self.center = (0, 0)
         # self.doors = []
         # self.windows = []
@@ -64,10 +65,16 @@ class Room(Benchmark):
         return any(are_things_in_collision(*pair) for pair in list(itertools.combinations(self.things, 2)))
 
     def get_max_carpet_radius(self):
-        return np.min(self.distance_from_center_to_things())
+        return np.min([self.maximum_carpet_in_empty_room(), self.maximum_carpet_with_things()])
 
     def satisfy_constraints(self):
         return self.all_things_in_room_range() and not self.is_door_stacked() and not self.is_window_stacked() and not self.exists_overlapping()
+
+    def maximum_carpet_in_empty_room(self):
+        return np.min([self.width, self.height]) // 2
+
+    def maximum_carpet_with_things(self):
+        return np.min(self.distance_from_center_to_things())
 
     @property
     def dimension(self):

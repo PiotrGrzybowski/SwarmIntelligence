@@ -75,7 +75,7 @@ from shapely.geometry import box
 # animation(whale.solutions, benchmark, low, high)
 # animation3D(wolf.solutions, benchmark, low, high)
 
-room = Room(400, 400)
+room = Room(600, 400)
 room.load_from_yml('../room.yml')
 
 benchmark = room
