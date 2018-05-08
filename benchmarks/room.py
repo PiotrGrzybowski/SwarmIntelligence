@@ -34,6 +34,21 @@ class Room(Benchmark):
     def process_borders(self, agents, low, high):
         return agents
 
+    def summary_solutions(self, solutions):
+        best = []
+        mean = []
+        for iteration_solution in solutions:
+            bp = []
+            for sol in iteration_solution:
+                self.set_thing_positions(sol)
+                bp.append(self.get_max_carpet_radius())
+
+            best_solution = self.find_best_solution(iteration_solution)
+            self.set_thing_positions(best_solution)
+            # self.set_thing_positions(solution.tolist())
+            best.append(self.get_max_carpet_radius())
+            mean.append(np.mean(bp))
+        return mean
 
     def distance_from_center_to_things(self):
         return [thing.calculate_distance_from_point(self.center) for thing in self.things if

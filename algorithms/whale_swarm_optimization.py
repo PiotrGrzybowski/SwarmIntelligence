@@ -28,6 +28,7 @@ class WhaleSwarmAlgorithm(SwarmIntelligence):
         self.initialize_searching(number_of_agents)
 
         for t in range(iterations):
+            print(t)
             new_agents = self.agents
             for i in range(number_of_agents):
                 y = self.__better_and_nearest_whale(i, number_of_agents)
