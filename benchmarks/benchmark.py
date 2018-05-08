@@ -14,3 +14,9 @@ class Benchmark:
 
     def process_borders(self, *args, **kwargs):
         raise NotImplementedError()
+
+    def is_maximising(self):
+        raise NotImplementedError()
+
+    def is_solution_better_than_global_solution(self, solution, global_solution):
+        raise NotImplementedError()

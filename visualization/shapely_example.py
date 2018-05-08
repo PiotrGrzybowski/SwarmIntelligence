@@ -1,33 +1,26 @@
-from matplotlib import pyplot
-from shapely.geometry import Point
-from shapely.ops import cascaded_union
+from matplotlib import pyplot as plt
+from shapely.geometry import box
+from shapely.geometry.polygon import Polygon
 from descartes import PolygonPatch
-from visualization.figures import SIZE, BLUE, GRAY, set_limits
 
-polygons = [Point(i, 0).buffer(0.7) for i in range(5)]
+fig = plt.figure(1, figsize=(5, 5), dpi=90)
+ring_mixed = Polygon([(0, 0), (0, 2), (1, 1),
+                      (2, 2), (2, 0), (1, 0.8), (0, 0)])
+ax = fig.add_subplot(111)
+ring_patch = PolygonPatch(ring_mixed)
+ax.add_patch(ring_patch)
+p = box(-1, -1, 1, 1)
+ax.add_patch(PolygonPatch(p, fc='red'))
+ax.add_patch(PolygonPatch(box(-5, -5, -5, 5), fc='red'))
 
-fig = pyplot.figure(1, figsize=SIZE, dpi=90)
+ax.set_title('General Polygon')
+xrange = [-10, 10]
+yrange = [-10, 10]
+ax.set_xlim(*xrange)
+ax.set_ylim(*yrange)
+ax.set_aspect(1)
 
-# 1
-ax = fig.add_subplot(121)
+# plt.show()
 
-for ob in polygons:
-    p = PolygonPatch(ob, fc=GRAY, ec=GRAY, alpha=0.5, zorder=1)
-    ax.add_patch(p)
-
-ax.set_title('a) polygons')
-
-set_limits(ax, -2, 6, -2, 2)
-
-#2
-ax = fig.add_subplot(122)
-
-u = cascaded_union(polygons)
-patch2b = PolygonPatch(u, fc=BLUE, ec=BLUE, alpha=0.5, zorder=2)
-ax.add_patch(patch2b)
-
-ax.set_title('b) union')
-
-set_limits(ax, -2, 6, -2, 2)
-
-pyplot.show()
+p.exterior.coords.xy[0][0] = 10
+print(p.exterior)

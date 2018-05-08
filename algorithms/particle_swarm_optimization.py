@@ -15,7 +15,7 @@ class ParticleSwarmOptimization(SwarmIntelligence):
     def find_best_solution(self, iterations, number_of_agents, c1, c2):
         self.initialize_searching(number_of_agents)
 
-        best_solution = self.agents[np.array([self.benchmark.evaluate(*x) for x in self.agents]).argmin()]
+        best_solution = self.benchmark.find_best_solution(self.agents)
         self.global_solution = best_solution
         for i in range(iterations):
             r1 = np.random.random((number_of_agents, self.benchmark.dimension))
@@ -29,7 +29,7 @@ class ParticleSwarmOptimization(SwarmIntelligence):
     def process_agents(self, best_solution, c1, c2, r1, r2):
         self.update_velocity(best_solution, c1, c2, r1, r2)
         self.agents += self.velocity
-        self.agents = self.benchmark.process_borders(self.agents, self.low, self.high)
+        # self.agents = self.benchmark.process_borders(self.agents, self.low, self.high)
 
     def initialize_searching(self, number_of_agents):
         self.solutions = []
@@ -41,7 +41,7 @@ class ParticleSwarmOptimization(SwarmIntelligence):
         self.velocity = 0.5 * self.velocity + c1 * r1 * (best_solution - self.agents) + c2 * r2 * (self.global_solution - self.agents)
 
     def update_global_solution(self, best_solution):
-        if self.benchmark.evaluate(*best_solution) < self.benchmark.evaluate(*self.global_solution):
+        if self.benchmark.is_solution_better_than_global_solution(best_solution, self.global_solution):
             self.global_solution = best_solution
 
     def initialize_agents(self, number_of_agents):

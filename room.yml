@@ -4,56 +4,56 @@ Thing1:
     height: 50
     can_stay_on_carpet: False
 
-#Thing2:
+Thing2:
+    name: Table
+    width: 50
+    height: 50
+    can_stay_on_carpet: False
+
+#Thing3:
+#    name: Table
+#    width: 50
+#    height: 50
+#    can_stay_on_carpet: True
+#
+#Thing4:
 #    name: Table
 #    width: 50
 #    height: 50
 #    can_stay_on_carpet: False
 #
-#Thing3:
-#    name: Table
-#    width: 20
-#    height: 20
-#    can_stay_on_carpet: True
-#
-#Thing4:
-#    name: Table
-#    width: 20
-#    height: 20
-#    can_stay_on_carpet: False
-#
 #Thing5:
 #    name: Table
-#    width: 20
-#    height: 20
+#    width: 50
+#    height: 50
 #    can_stay_on_carpet: False
 #
 #Thing6:
 #    name: Table
-#    width: 20
-#    height: 20
-#    can_stay_on_carpet: False
+#    width: 50
+#    height: 50
+#    can_stay_on_carpet: True
 #
 #Thing7:
 #    name: Table
-#    width: 20
-#    height: 20
+#    width: 50
+#    height: 50
 #    can_stay_on_carpet: False
 #
 #Thing8:
 #    name: Table
-#    width: 20
-#    height: 20
+#    width: 50
+#    height: 50
 #    can_stay_on_carpet: False
 #
 #Thing9:
 #    name: Table
-#    width: 20
-#    height: 20
-#    can_stay_on_carpet: False
+#    width: 50
+#    height: 50
+#    can_stay_on_carpet: True
 #
 #Thing10:
 #    name: Table
-#    width: 20
-#    height: 20
+#    width: 50
+#    height: 50
 #    can_stay_on_carpet: False

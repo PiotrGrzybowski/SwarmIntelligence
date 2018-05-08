@@ -1,38 +1,31 @@
-import numpy as np
-
-import yaml
-import matplotlib.pyplot as plt
-from matplotlib.pylab import savefig
-
-from Python.room import Room
-from Python.thing import Thing
-from Python.visualization_utils import RoomDrawer
-from algorithms.gray_wolf_algorithm import GrayWolfAlgorithm
 from algorithms.particle_swarm_optimization import ParticleSwarmOptimization
 from algorithms.whale_swarm_optimization import WhaleSwarmAlgorithm
-from benchmarks.math_functions import BohachevskyFunction, Ackley2Function, HolderTableFunction
-from visualization.animations import animation, animation3D
-from shapely.geometry import box
+from benchmarks.math_functions import Ackley2Function
+from benchmarks.room import Room
+from Python.visualization_utils import RoomDrawer
+from algorithms.gray_wolf_algorithm import GrayWolfAlgorithm
 
 # # benchmark = BohachevskyFunction()
-# benchmark = Ackley2Function()
+from visualization.animations import animation
+
+benchmark = Ackley2Function()
 # # benchmark = BohachevskyFunction()
 # # benchmark = HolderTableFunction()
-# low = -10
-# high = 10
-# iterations = 40
-# number_of_agents = 30
+low = -10
+high = 10
+iterations = 40
+number_of_agents = 30
 #
 # k = 1
-# whale = WhaleSwarmAlgorithm(benchmark=benchmark, low=low, high=high)
-# pso = ParticleSwarmOptimization(benchmark=benchmark, low=low, high=high)
-# wolf = GrayWolfAlgorithm(benchmark=benchmark, low=low, high=high)
+whale = WhaleSwarmAlgorithm(benchmark=benchmark, low=low, high=high)
+pso = ParticleSwarmOptimization(benchmark=benchmark, low=low, high=high)
+wolf = GrayWolfAlgorithm(benchmark=benchmark, low=low, high=high)
 #
 # res = np.zeros(3)
 #
-# pso.find_best_solution(number_of_agents=number_of_agents, iterations=iterations - 1, c1=0.5, c2=0.5)
-# wolf.find_best_solution(number_of_agents=number_of_agents, iterations=iterations - 1)
-# whale.find_best_solution(number_of_agents=number_of_agents, iterations=iterations - 1, ro0=3, eta=0.001)
+pso.find_best_solution(number_of_agents=number_of_agents, iterations=iterations - 1, c1=0.5, c2=0.5)
+wolf.find_best_solution(number_of_agents=number_of_agents, iterations=iterations - 1)
+whale.find_best_solution(number_of_agents=number_of_agents, iterations=iterations - 1, ro0=3, eta=0.001)
 #
 # pso_best, _ = pso.best_average_summary()
 # wolf_best, _ = wolf.best_average_summary()
@@ -79,16 +72,20 @@ room = Room(600, 400)
 room.load_from_yml('../room.yml')
 
 benchmark = room
-number_of_agents = 40
-iterations = 20
+number_of_agents = 10
+iterations = 50
 low = -200
 high = 200
 
-wolf = GrayWolfAlgorithm(benchmark=benchmark, low=low, high=high)
-wolf.find_best_solution(number_of_agents=number_of_agents, iterations=iterations - 1)
+pso = ParticleSwarmOptimization(benchmark=benchmark, low=low, high=high)
+pso.find_best_solution(number_of_agents=number_of_agents, iterations=iterations - 1, c1=0.5, c2=0.5)
 
-wolf = GrayWolfAlgorithm(benchmark=benchmark, low=low, high=high)
-wolf.find_best_solution(number_of_agents=number_of_agents, iterations=iterations - 1)
-room.set_thing_positions(wolf.global_solution)
+
+# whale = WhaleSwarmAlgorithm(benchmark=benchmark, low=low, high=high)
+# whale.find_best_solution(number_of_agents=number_of_agents, iterations=iterations - 1)
+
+# wolf = GrayWolfAlgorithm(benchmark=benchmark, low=low, high=high)
+# wolf.find_best_solution(number_of_agents=number_of_agents, iterations=iterations - 1)
+room.set_thing_positions(pso.global_solution)
 drawer = RoomDrawer(room)
 drawer.show()

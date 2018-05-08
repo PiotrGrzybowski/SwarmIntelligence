@@ -2,13 +2,12 @@ from Python.geometric_utils import distance_from_point_to_rectangle
 
 
 class Thing:
-    def __init__(self, name, width, height, can_stay_on_carpet):
-        self.y = 0
-        self.x = 0
+    def __init__(self, name, width, height, can_stay_on_carpet, x=0, y=0):
+        self.y = y
+        self.x = x
         self.name = name
         self.width = width
         self.height = height
-        self.set_position(0, 0)
         self.can_stay_on_carpet = can_stay_on_carpet
 
     def move(self, x, y):

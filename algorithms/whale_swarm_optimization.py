@@ -35,11 +35,11 @@ class WhaleSwarmAlgorithm(SwarmIntelligence):
                     new_agents[i] += np.dot(np.random.uniform(0, ro0 * np.exp(-eta * self.__whale_dist(i, y))),
                                             self.agents[y] - self.agents[i])
             self.agents = new_agents
-            self.agents = self.benchmark.process_borders(self.agents, self.low, self.high)
+            # self.agents = self.benchmark.process_borders(self.agents, self.low, self.high)
             self.save_current_solutions(self.agents)
 
             solution = self.benchmark.find_best_solution(self.agents)
-            if self.benchmark.evaluate(*solution) < self.benchmark.evaluate(*self.global_solution):
+            if self.benchmark.is_solution_better_than_global_solution(solution, self.global_solution):
                 self.global_solution = solution
 
     def initialize_searching(self, number_of_agents):
@@ -56,7 +56,7 @@ class WhaleSwarmAlgorithm(SwarmIntelligence):
 
         v = None
         for i in range(n):
-            if self.benchmark.evaluate(*self.agents[i]) < self.benchmark.evaluate(*self.agents[u]):
+            if self.benchmark.is_solution_better_than_global_solution(self.agents[i], self.agents[u]):
                 dist_iu = self.__whale_dist(i, u)
                 if dist_iu < temp:
                     v = i

@@ -55,12 +55,12 @@ class GrayWolfAlgorithm(SwarmIntelligence):
             self.save_current_solutions(self.agents)
 
             self.evaluate_alpha_beta_delta(number_of_agents)
-            if self.benchmark.evaluate(*self.alpha) < self.benchmark.evaluate(*self.global_solution):
+            if self.benchmark.is_solution_better_than_global_solution(self.alpha, self.global_solution):
                 self.global_solution = self.alpha
         self.evaluate_alpha_beta_delta(number_of_agents)
 
     def evaluate_alpha_beta_delta(self, n):
-        fitness = sorted([(self.benchmark.evaluate(*self.agents[i]), i) for i in range(n)], reverse=True)
+        fitness = sorted([(self.benchmark.evaluate(*self.agents[i]), i) for i in range(n)], reverse=self.benchmark.is_maximising())
         self.alpha = self.agents[fitness[0][1]]
         self.beta = self.agents[fitness[1][1]]
         self.delta = self.agents[fitness[2][1]]

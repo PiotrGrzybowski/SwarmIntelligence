@@ -17,6 +17,12 @@ class MathFunction(Benchmark):
     def process_borders(self, agents, low, high):
         return np.clip(agents, low, high)
 
+    def is_maximising(self):
+        return False
+
+    def is_solution_better_than_global_solution(self, solution, global_solution):
+        return self.evaluate(*solution) < self.evaluate(*global_solution)
+
 
 class BohachevskyFunction(MathFunction):
     def evaluate(self, x, y):
