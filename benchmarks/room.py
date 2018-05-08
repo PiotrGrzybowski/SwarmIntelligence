@@ -1,5 +1,6 @@
 import numpy as np
 import itertools
+import math
 
 import yaml
 
@@ -45,6 +46,9 @@ class Room(Benchmark):
     def is_thing_in_room_range(self, thing):
         return thing.x_min >= self.x_min and thing.x_max <= self.x_max and \
                thing.y_min >= self.y_min and thing.y_max <= self.y_max
+
+    def is_angle_good(self, tv, couch):
+        return math.fabs(tv.x - couch.x) < math.sqrt((tv.x - couch.x)**2 + (tv.y - couch.y)**2)/2
 
     def all_things_in_room_range(self):
         return all([self.is_thing_in_room_range(thing) for thing in self.things])
@@ -122,7 +126,8 @@ class Room(Benchmark):
         return np.sum([collision_penalty(*pair) for pair in thing_collision_pairs(self.things)])
 
     def total_penalty(self):
-        return self.total_border_penalty() + self.total_collision_penalty() + self.total_window_penalty() + self.total_door_penalty()
+        return self.total_border_penalty() + self.total_collision_penalty() + self.total_window_penalty() \
+               + self.total_door_penalty() + self.penalty_for_tv_angle()
 
     def add_window(self):
         return Thing('Door', 60, 5, False, x=0, y=self.y_max)
@@ -131,10 +136,10 @@ class Room(Benchmark):
         return Thing('Window', 5, 60, False, x=self.x_max, y=0)
 
     def is_thing_on_window(self, thing):
-        return self.window.x_min < thing.x_min < self.window.x_max or self.window.x_min < thing.x_max < self.window.x_max
+        return self.window.x_min < thing.x_min < self.window.x_max or self.window.x_min < thing.x_max < self.window.x_max or self.window.x_min < thing.x < self.window.x_max
 
     def is_thing_on_door(self, thing):
-        return self.door.y_min < thing.y_min < self.door.y_max or self.door.y_min < thing.y_max < self.door.y_max
+        return self.door.y_min < thing.y_min < self.door.y_max or self.door.y_min < thing.y_max < self.door.y_max or self.door.y_min < thing.y < self.door.y_max
 
     def penalty_for_thing_on_window(self, thing):
         return np.max([self.min_distance_from_window - (self.y_max - thing.y_max), 0])
@@ -142,8 +147,15 @@ class Room(Benchmark):
     def penalty_for_thing_on_door(self, thing):
         return np.max([self.min_distance_from_window - (self.x_max - thing.x_max), 0])
 
+    def penalty_for_tv_angle(self):
+        tv = [thing for thing in self.things if thing.name == 'TV'][0]
+        couch = [thing for thing in self.things if thing.name == 'Couch'][0]
+        min_distance = 150
+        distance_penalty = min(0, (math.sqrt((tv.x - couch.x)**2 + (tv.y - couch.y)**2) - min_distance))*(-1)
+        return distance_penalty if self.is_angle_good(tv, couch) else 100 + distance_penalty
+
     def total_window_penalty(self):
-        return np.sum([self.penalty_for_thing_on_window(thing) for thing in self.things if self.is_thing_on_window(thing)])
+        return np.sum([self.penalty_for_thing_on_window(thing)*5 for thing in self.things if self.is_thing_on_window(thing)])
 
     def total_door_penalty(self):
         return np.sum([self.penalty_for_thing_on_door(thing) for thing in self.things if self.is_thing_on_door(thing)])
